@@ -81,7 +81,7 @@ describe('Navigation principale', () => {
     await user.keyboard('{Enter}');
 
     expect(router.state.location.hash).toBe('#contact');
-    expect(screen.getByRole('region', { name: 'Contact' })).toHaveFocus();
+    expect(screen.getByRole('contentinfo')).toHaveFocus();
   });
 });
 
@@ -129,6 +129,6 @@ describe('Menu mobile', () => {
     await user.click(within(getNav()).getByRole('link', { name: 'À propos' }));
 
     expect(getToggle()).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.getByRole('region', { name: 'À propos' })).toHaveFocus();
+    expect(screen.getByRole('region', { name: 'Entre le Sénégal et le Japon.' })).toHaveFocus();
   });
 });

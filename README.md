@@ -2,7 +2,7 @@
 
 Portfolio de Tammiat — direction artistique **Nippon × Teranga — Modern Heritage**.
 
-> Statut : Sprint 0 (fondation technique). L'interface graphique et les contenus validés arrivent au Sprint 1.
+> Statut : Sprint 1 — page d'accueil intégrée d'après la maquette ([rapport](docs/reports/SPRINT-1-REPORT.md)). Assets haute définition, URL des projets et textes définitifs en attente de validation.
 
 ## Prérequis
 
@@ -46,7 +46,8 @@ src/
     sections/   Sections de page (Sprint 1)
     ui/         Composants d'interface réutilisables
   pages/        Pages routées
-  data/         Données séparées du JSX (navigation, métadonnées…)
+  data/         Données séparées du JSX (navigation, projets, stack…)
+  i18n/         Langue FR / EN : dictionnaires et contexte
   hooks/        Hooks React
   lib/          Utilitaires sans React
   styles/       globals.css : tokens du design system + styles de base
@@ -68,7 +69,15 @@ Les tokens (couleurs, typographies, espacements, rayons, breakpoints, transition
 
 La palette Tailwind par défaut est désactivée : seules les couleurs de la charte existent.
 
-⚠️ La couleur **Terre** (`clay`, #C28A52) a un contraste de 2.51:1 sur l'ivoire : usage décoratif uniquement.
+**Unité de mise en page** : à partir de 768 px, `1` unité Tailwind = `1` px de la maquette (`docs/maquette/homepage.png`, 1024 px de large), mis à l'échelle de l'écran jusqu'à 1280 px. On reporte donc directement les mesures de la maquette (`h-48`, `px-64`…).
+
+⚠️ Les couleurs `clay`, `clay-soft`, `line` et `line-soft` ont un contraste < 3:1 : usage décoratif uniquement.
+
+## Contenus
+
+- Projets : `src/data/projects.ts` (ajouter `href` pour rendre une carte cliquable).
+- Stack : `src/data/stack.ts`.
+- Textes FR / EN : `src/i18n/translations.ts`.
 
 ## Documentation
 

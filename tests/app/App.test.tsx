@@ -13,11 +13,12 @@ describe('Application', () => {
     expect(screen.getByRole('contentinfo')).toBeInTheDocument();
   });
 
-  it('affiche le nom du site et une année de copyright dynamique dans le footer', () => {
+  it('expose la zone Contact dans le footer, avec une année de copyright dynamique', () => {
     renderApp();
 
     const footer = screen.getByRole('contentinfo');
-    expect(within(footer).getByText('Tammiat-folio')).toBeInTheDocument();
+    expect(footer).toHaveAttribute('id', 'contact');
+    expect(within(footer).getByRole('heading', { level: 2, name: 'Contact' })).toBeInTheDocument();
     expect(
       within(footer).getByText(`© ${new Date().getFullYear()} Tammiat-folio`),
     ).toBeInTheDocument();
@@ -30,14 +31,16 @@ describe('Application', () => {
       await screen.findByRole('heading', { level: 1, name: 'Page introuvable' }),
     ).toBeInTheDocument();
     expect(document.title).toBe('Page introuvable — Tammiat-folio');
-    expect(screen.getByRole('link', { name: "Retour à l'accueil" })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Retour à l’accueil' })).toHaveAttribute('href', '/');
   });
 
   it("revient à l'accueil depuis la page 404", async () => {
     const { user } = renderApp('/page-inexistante');
 
-    await user.click(await screen.findByRole('link', { name: "Retour à l'accueil" }));
+    await user.click(await screen.findByRole('link', { name: 'Retour à l’accueil' }));
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Tammiat-folio' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Designing useful & stylish experiences.' }),
+    ).toBeInTheDocument();
   });
 });

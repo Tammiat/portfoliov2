@@ -38,3 +38,31 @@
 
 - `npm audit` signale une vulnérabilité modérée de `minimatch` dans l'outillage ESLint (développement uniquement, non livrée). Le correctif automatique casserait `eslint-config-prettier` : à réévaluer lors d'une mise à jour d'ESLint.
 - Meta description, Open Graph (`og:url`, `og:image`) et favicon sont provisoires, en attente de l'identité et des contenus validés.
+
+## Sprint 1 — 2 novembre 2026
+
+### Fidélité à la maquette
+
+- **Unité de mise en page** : `--spacing` vaut 1 px sur mobile et `min(100vw, 1280px) / 1024` à partir de 768 px. Une classe comme `px-64` correspond donc à 64 px de la maquette (1024 px de large), mis à l'échelle de l'écran. Les tailles de texte courant ne descendent jamais sous leur valeur en `rem`.
+- **Palette alignée sur la maquette** (référence visuelle absolue du sprint) : fond `#FCF6F1`, fond du hero `#FBF4EC`, rouge `#B11E1D`, texte secondaire `#3A3431`, plus des teintes décoratives (`clay-soft`, `line`, `line-soft`). Contrastes remesurés : AA partout pour le texte.
+- **Polices** : Manrope pour les titres et le texte courant (charte : « Inter ou Manrope ») ; Inter retirée. IBM Plex Mono conservée pour le copyright.
+
+### Contenus et liens
+
+- Les éléments qui exigent une destination (icône ↗ et lien des cartes, « Voir tous les projets », « En savoir plus ») ne s'affichent que si l'URL est renseignée (`src/data/projects.ts`, `src/data/site.ts`) : pas de lien factice.
+- Logos de la stack : tracés officiels de simple-icons (CC0) copiés dans `src/data/stack.ts`, sans dépendance.
+- Assets provisoires extraits de la maquette (`src/assets/`), à remplacer par les originaux haute définition.
+
+### Langue
+
+- FR / EN via `LocaleProvider` : dictionnaires typés (`src/i18n/translations.ts`, le français fait référence), `document.documentElement.lang` synchronisé, choix mémorisé dans `localStorage` (lecture et écriture protégées).
+- Le titre du hero, en anglais dans les deux versions, porte `lang="en"`.
+
+### Navigation
+
+- Section active : position de défilement (`useScrollSpy`, ligne d'activation à 40 % de la hauteur, dernière section en bas de page), puis ancre de l'URL.
+- Le footer porte l'ancre `#contact`.
+
+### Animations
+
+- Variantes partagées dans `src/lib/motion.ts` (opacity/transform uniquement). L'illustration du hero n'est jamais masquée (léger zoom seulement) pour ne pas retarder le LCP.

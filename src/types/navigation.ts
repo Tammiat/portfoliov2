@@ -2,6 +2,7 @@
 export type SectionId = 'accueil' | 'projets' | 'apropos' | 'stack' | 'contact';
 
 export interface NavItem {
-  label: string;
+  /** Clé du libellé dans le dictionnaire `nav`. */
+  labelKey: 'home' | 'projects' | 'about' | 'contact';
   sectionId: SectionId;
 }

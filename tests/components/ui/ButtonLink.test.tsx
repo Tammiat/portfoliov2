@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import type { ReactNode } from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import { describe, expect, it } from 'vitest';
 
 import { ButtonLink } from '@/components/ui/ButtonLink';
 
-function renderInRouter(ui: React.ReactNode) {
+function renderInRouter(ui: ReactNode) {
   const router = createMemoryRouter([{ path: '*', element: ui }], { initialEntries: ['/'] });
   render(<RouterProvider router={router} />);
   return router;
@@ -23,6 +24,17 @@ describe('ButtonLink', () => {
     renderInRouter(<ButtonLink to={{ hash: 'contact' }}>Contact</ButtonLink>);
 
     expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/#contact');
+  });
+
+  it('ajoute la flèche ↗ décorative sans modifier le nom accessible', () => {
+    renderInRouter(
+      <ButtonLink to="/a" withArrow>
+        Voir mes projets
+      </ButtonLink>,
+    );
+
+    const link = screen.getByRole('link', { name: 'Voir mes projets' });
+    expect(link.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('distingue visuellement les variantes primaire et secondaire', () => {

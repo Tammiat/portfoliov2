@@ -1,12 +1,18 @@
 import { useLocation } from 'react-router';
 
+import { trackedSections } from '@/data/navigation';
+
+import { useScrollSpy } from './useScrollSpy';
+
 /**
- * Identifiant de la section courante d'après l'URL ; « accueil » sans ancre sur la page d'accueil,
- * null sur les autres pages. Le suivi au défilement (scroll-spy) pourra s'appuyer dessus au Sprint 1.
+ * Section courante de la page d'accueil : d'abord la position de défilement,
+ * puis l'ancre de l'URL, sinon « accueil ». Null sur les autres pages.
  */
 export function useActiveSection(): string | null {
   const { pathname, hash } = useLocation();
+  const isHome = pathname === '/';
+  const spied = useScrollSpy(trackedSections, isHome);
 
-  if (pathname !== '/') return null;
-  return hash ? decodeURIComponent(hash.slice(1)) : 'accueil';
+  if (!isHome) return null;
+  return spied ?? (hash ? decodeURIComponent(hash.slice(1)) : 'accueil');
 }
