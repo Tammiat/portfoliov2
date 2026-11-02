@@ -1,0 +1,28 @@
+# Dépendances
+node_modules/
+
+# Builds
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Tests
+coverage/
+
+# Variables d'environnement (seul .env.example est versionné)
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Éditeurs / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.local
+*.swp
